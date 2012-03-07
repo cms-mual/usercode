@@ -1,0 +1,66 @@
+
+  $Id: README,v 1.11 2011/11/22 10:10:30 pooja Exp $
+
+  Creating a user area in the CMSSW repository
+  --------------------------------------------
+
+  There is an area called "UserCode" in the CMSSW repository where you can
+create yourself a package to store your code and cfg files, for example:
+
+   UserCode/PElmer
+
+Note that this area is primarily intended for "user" code which will never
+go into CMSSW software releases. If you intend for your code to go into 
+CMSSW releases, you should probably just request a normal package with the 
+normal procedure via the Tag Collector.
+
+  To create such a user CVS area for yourself, do the following:
+
+    1) Choose a packagename for yourself. Typically this should be your
+       name (e.g. with some capitalization as above, or your CERN unix 
+       username, etc.) so that it is semi-obvious whose package it is.
+  
+    2) Then create your package (here for an example "JohnDoe" user):
+  
+         (set your CVSROOT to point to the CMSSW CVS repository)
+         ('cd' to some temporary area)
+         cvs co UserCode/README
+         mkdir UserCode/JohnDoe
+         cd UserCode
+         cvs add JohnDoe
+  
+      In general it is advisable to structure it like a normal CMSSW package,
+      i.e. with the same subdirectory structure. To do this, you can do:
+  
+         mkdir JohnDoe/src JohnDoe/interface
+         cvs add JohnDoe/src JohnDoe/interface
+         mkdir JohnDoe/data JohnDoe/test
+         cvs add JohnDoe/data JohnDoe/test
+ 
+      If you do not think you need some of these subdirectories at the
+      moment, you simply do not 'mkdir' and 'cvs add' them.
+ 
+    3) Then you can 'cd' into the "src" area of some scram working/developer
+       area and do:
+  
+         cvs co UserCode/JohnDoe
+  
+      and begin to add your code and cfg files to the subdirectories. If you 
+      need a BuildFile, you can copy an example from a normal CMSSW package 
+      and edit it to serve your purposes.
+  
+      *********************************************************************
+      ** Please note that you should _not_ commit files to the UserCode  **
+      ** directory itself, but only in your equivalent of the "JohnDoe"  **
+      ** sub-directory....                                               **
+      *********************************************************************
+
+** To add the files in the USerCode area, Do :
+1.) Add the file in the area where you want to add
+add myPlot.C psaxena/scripts/myPlot.C
+
+2.) cvs commit psaxena/scripts/myPlot.C
+
+3.) HelpPage:
+		http://cmssw.cvs.cern.ch/cgi-bin/cmssw.cgi/UserCode/README?view=markup
+	        https://twiki.cern.ch/twiki/bin/view/Main/HowToUserCode
