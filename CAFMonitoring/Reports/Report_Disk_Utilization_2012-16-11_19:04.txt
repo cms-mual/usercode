@@ -1,0 +1,3 @@
+Disk quota for ALCA_MUONALIGN group:
+Volume Name                    Quota       Used %Used   Partition
+p.CALCA.AMA                400000000  147724592   37%         62%  
