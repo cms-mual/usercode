@@ -1,0 +1,10 @@
+Run this ./check_CPU_Utilization.sh
+This script allows to get a report of CPU utilization on CAF
+
+Report will be created in new folder, for example: Report_CPU_Utilization_2012-16-11_18:19
+
+Get the latest version of the main script here: https://twiki.cern.ch/twiki/pub/CMS/CAFUserActivities/script.py.txt
+
+See details on twiki:
+https://twiki.cern.ch/twiki/bin/view/CMS/CAF#CAF_User_Activities
+https://twiki.cern.ch/twiki/bin/view/CMS/CAFUserActivities
