@@ -1,0 +1,184 @@
+
+********************************************************************************
+There was 665003 jobs in total.
+12211 (1.84%) jobs were without group information.
+70987 (10.67%) jobs failed at submission time.
+Total active users: 141 (12.79%).
+Total unique users: 852.
+Total users: 1102.
+Total efficiency of all groups: 84.86%.
+********************************************************************************
+
+----------------------------------------------------
+|                    | CMSALCA | CMSCOMM | CMSPHYS |
+----------------------------------------------------
+| Active users       |    73   |    85   |    50   |
+| Total unique users |   205   |   573   |   204   |
+| Total users        |   279   |   604   |   219   |
+| Efficiency         |  84.62% |  81.58% |  89.39% |
+----------------------------------------------------
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ALCA_ECALCALIB
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+yangyong   11578331     7334337.79   11513    63.35%
+obertino   4697002      4380841.86   2754     93.27%
+meridian   4326499      3823345.95   1429     88.37%
+micheli    2263727      1961967.73   1431     86.67%
+nadiap     357494       331674.58    262      92.78%
+malberti   182349       74144.42     140      40.66%
+jared      90407        40412.37     546      44.70%
+--------------------------------------------------------------------
+TOTALS     23495809     17946724.70  18075    76.38%
+
+Users, who were not active:
+abenagli; amartell; amassiro; argiro; arussoma; biinocri; bornheim; chiyi; clalicat; cpena; deguio; fcouderc; ferriff; fra; franzoni; govoni; kubota; lpernie; marat; mgataull; rgerosa; rgreino; ric; scooper; shervin; tambe; ttf; vlitvin; vsola; wangjian
+
+>>>>>>>>>>
+ALCA_EXPRESS
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+tlampen    10532464     2466463.35   28273    23.42%
+jbehr      5027571      4253453.43   7052     84.60%
+krajczar   3582034      3460020.04   681      96.59%
+khotilov   3185463      2820235.14   2840     88.53%
+lennys     3031193      2993688.21   130      98.76%
+abdullin   1793660      1663364.25   780      92.74%
+bonato     1340570      1191788.81   420      88.90%
+jtomasz    913731       794422.95    1593     86.94%
+pchen      859994       765633.46    803      89.03%
+agocsa     467603       453942.84    163      97.08%
+dnoonan    454830       339547.11    1691     74.65%
+castello   300492       259405.57    170      86.33%
+musich     260095       247612.68    14       95.20%
+pellicci   209828       205908.27    1        98.13%
+pbaringe   185114       183953.86    1        99.37%
+flucke     184449       176792.89    101      95.85%
+burkett    62368        61423.61     6        98.49%
+emiglior   3451         2608.98      7        75.60%
+--------------------------------------------------------------------
+TOTALS     32394910     22340265.44  44726    68.96%
+
+Users, who were not active:
+ajkumar; amarcel; argiro; bhardwaj; eaguiloc; econte; edelhoff; frmeier; ghellwig; grundler; gveszter; hidaspal; hroskes; jengbou; jmoisio; kfjack; lucaroni; marat; mweber; natalie; nbartosi; ntran; pablom; pivarski; radbal; ric; rmankel; schauhan; sikler; spiridon; sprenger; uplegger; vlitvin; yumiceva
+
+>>>>>>>>>>
+ALCA_GLOBAL
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+lennys     3124930      3080556.96   134      98.58%
+burkett    51293        50199.20     8        97.87%
+crovelli   19878        8777.04      26       44.15%
+--------------------------------------------------------------------
+TOTALS     3196101      3139533.20   168      98.23%
+
+Users, who were not active:
+alcaprod; allfrey; beaucero; futyand; galank; heltsley; jengbou; mstoye; mussgill; rmankel; schauhan; spiridon; uplegger; yumiceva
+
+>>>>>>>>>>
+ALCA_HCALCALIB
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+abdullin   2847496      2671405.10   1160     93.82%
+akub19     2674649      1925881.41   2544     72.01%
+devdatta   29732        24151.65     84       81.23%
+--------------------------------------------------------------------
+TOTALS     5551877      4621438.15   3788     83.24%
+
+Users, who were not active:
+anastass; anayak; andrey; anirban; cgtully; devildog; efe; epshteyn; fedotov; gavrilov; gerbaudo; jhirsch; kodolova; krohotin; majumder; markir; moissenz; naodell; rofierzy; safronov; seema; selda; sergeant; stepobr; toropin; velasco; winnyger
+
+>>>>>>>>>>
+ALCA_MILLEPEDE
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+jbehr      5688310      4778079.84   8781     84.00%
+krajczar   4050052      3914962.86   794      96.66%
+pchen      881326       780419.89    947      88.55%
+jtomasz    853237       733010.90    1699     85.91%
+agocsa     621086       596540.58    289      96.05%
+dnoonan    579349       426731.12    2142     73.66%
+musich     440967       421736.83    29       95.64%
+castello   332119       289377.16    193      87.13%
+flucke     281280       266106.61    194      94.61%
+devdatta   75395        66352.57     100      88.01%
+emiglior   12609        7151.30      27       56.72%
+--------------------------------------------------------------------
+TOTALS     13815730     12280469.67  15195    88.89%
+
+Users, who were not active:
+ckleinw; frmeier; grundler; gveszter; hidaspal; kfjack; nbartosi; rmankel; spiridon
+
+>>>>>>>>>>
+ALCA_MUONALIGN
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+aysen      14537374     11922839.30  16649    82.02%
+scodella   6105872      4900341.78   5366     80.26%
+khotilov   3627764      3222820.52   2854     88.84%
+pakhotin   1643226      1422510.91   2056     86.57%
+bujvari    165961       163617.19    53       98.59%
+--------------------------------------------------------------------
+TOTALS     26080197     21632129.71  26978    82.94%
+
+Users, who were not active:
+aschneid; banicz; bencze; calderon; ggomez; guragain; hkalakhe; hohlmann; jfernan2; jnb; kypreos; mator; pablom; pivarski; rebeca; rivero; szillas; sznajder
+
+>>>>>>>>>>
+ALCA_MUONCALIB
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+antoniov   1685934      666764.34    466      39.55%
+sbologne   698279       99525.24     11898    14.25%
+sacchi     254558       135793.76    412      53.34%
+pellicci   238687       229791.61    3        96.27%
+--------------------------------------------------------------------
+TOTALS     2877458      1131874.95   12779    39.34%
+
+Users, who were not active:
+amapane; amarcel; astaiano; boeriu; botta; carroll; cerminar; chiara; marinag; maselli; mmaggi; monaco; olschew; ruspa; solano; teyssier; trocino
+
+>>>>>>>>>>
+ALCA_TRACKERALIGN
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+taroni     56672671     44551098.04  40554    78.61%
+tlampen    8616186      1994715.76   37186    23.15%
+jbehr      4569804      3848393.67   6614     84.21%
+krajczar   2376851      2293809.48   537      96.51%
+covarell   2262824      898427.95    5824     39.70%
+whitbeck   1446889      806580.06    1074     55.75%
+bonato     1196583      1125639.47   308      94.07%
+pchen      897976       800121.32    884      89.10%
+jtomasz    797655       744670.53    1368     93.36%
+eorcutt    735622       729514.44    32       99.17%
+hauk       637255       516755.49    883      81.09%
+ssanders   517495       409142.33    26       79.06%
+agocsa     408236       396982.43    123      97.24%
+sbologne   387389       30832.13     6904     7.96%
+dnoonan    367683       253073.06    1640     68.83%
+castello   329450       282965.39    193      85.89%
+flucke     175126       168301.43    90       96.10%
+musich     94085        88113.16     6        93.65%
+emiglior   3991         3132.22      7        78.48%
+--------------------------------------------------------------------
+TOTALS     82493771     59942268.36  104253   72.66%
+
+Users, who were not active:
+ajkumar; anirban; aperiean; ashok; aspiezia; bhardwaj; cgoetzma; ckleinw; devdatta; econte; edelhoff; frmeier; ghellwig; gritsan; grundler; gveszter; henderle; hidaspal; hroskes; jandrea; jmoisio; karimaki; kaschube; kfjack; mattson; mussgill; natalie; nbartosi; ntran; pbaringe; ranjan; rmankel; scasasso; speer; spiridon; sprenger; wittmer; zguo
+
+>>>>>>>>>>
+ALCA_TRACKERCALIB
+USER       WALL         CPU          #JOBS    EFFICIENCY
+--------------------------------------------------------------------
+jkarancs   149587444    144327643.55 14304    96.48%
+dkotlins   681282       503547.15    86       73.91%
+giamman    30475        28544.30     12       93.66%
+--------------------------------------------------------------------
+TOTALS     150299201    144859735.00 14402    96.38%
+
+Users, who were not active:
+aryd; avanspil; borrell; chiochia; dutta; fblekman; friis; gbruno; giordano; hidaspal; jluetic; kaussen; mgalanti; msegala; querten; sapta; ursl; vciulli; veszpv
+
+>>>>>>>>>>
