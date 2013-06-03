@@ -352,9 +352,9 @@ class plotContainer:
             s += "[%d,%d]" % (x_min, x_max)
         s += "-%s" % self.yo_var
         if y_min == y_max:
-            s += "[%d] " % y_min
+            s += "[%d]__" % y_min
         else:
-            s += "[%d,%d] " % (y_min, y_max)
+            s += "[%d,%d]__" % (y_min, y_max)
         sep = "__"
         for i in self.ar:
             s += self.ar_names[i] + sep
@@ -397,7 +397,7 @@ def main(pc):
     pc.readFile('sign_conventions_mb.txt', True)
     pc.applySC()
 
-    os.chdir("..\plots")
+    os.chdir("../plots")
 
     pc.ar = [0,2]
 
