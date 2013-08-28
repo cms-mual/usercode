@@ -13,7 +13,7 @@
 //
 // Original Author:  Yuriy Pakhotin,,,
 //         Created:  Wed Aug 28 17:03:10 CDT 2013
-// $Id$
+// $Id: ChamberFilter.cc,v 1.1 2013/08/28 23:30:13 pakhotin Exp $
 //
 //
 
@@ -40,6 +40,7 @@
 #include "DataFormats/TrackingRecHit/interface/TrackingRecHitFwd.h"
 #include "DataFormats/DetId/interface/DetId.h"
 #include "DataFormats/MuonDetId/interface/MuonSubdetId.h"
+#include "DataFormats/MuonDetId/interface/DTChamberId.h"
 
 //
 // class declaration
@@ -64,6 +65,9 @@ class ChamberFilter : public edm::EDFilter {
   int m_minTrackerHits;
   int m_minDTHits;
   int m_minCSCHits;
+  int m_DTWheel;
+  int m_DTStation;
+  int m_DTSector;
 
 };
 
@@ -86,6 +90,9 @@ ChamberFilter::ChamberFilter(const edm::ParameterSet& iConfig)
   , m_minTrackerHits( iConfig.getParameter<int>("minTrackerHits"))
   , m_minDTHits(      iConfig.getParameter<int>("minDTHits"))
   , m_minCSCHits(     iConfig.getParameter<int>("minCSCHits"))
+  , m_DTWheel(     iConfig.getParameter<int>("dtWheel"))
+  , m_DTStation(     iConfig.getParameter<int>("dtStation"))
+  , m_DTSector(     iConfig.getParameter<int>("dtSector"))
 
 {}
 
@@ -112,8 +119,38 @@ bool ChamberFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   for (reco::TrackCollection::const_iterator it = trackColl->begin();  it != trackColl->end();  ++it) {
     const reco::Track* track = &(*it);
-    if ( track->pt() < m_minTrackPt ) continue;
+
     std::cout << "track->pt(): " << track->pt() << std::endl;
+    if ( track->pt() < m_minTrackPt ) continue;
+    
+    std::cout << "track->eta(): " << track->eta() << std::endl;
+    if (track->eta() < m_minTrackEta || track->eta() > m_maxTrackEta ) continue;
+    
+    int tracker_numHits = 0;
+    int dt_numHits      = 0;
+    int csc_numHits     = 0;
+    
+    for ( trackingRecHit_iterator hit = track->recHitsBegin(); hit != track->recHitsEnd();  ++hit ) {
+      DetId id = (*hit)->geographicalId();        
+      if ( id.det() == DetId::Tracker ) tracker_numHits++;
+      if ( id.det() == DetId::Muon && id.subdetId() == MuonSubdetId::DT ) {
+        const DTChamberId chamberId(id.rawId());
+        if (    chamberId.wheel()   == m_DTWheel
+             && chamberId.station() == m_DTStation
+             && chamberId.sector()  == m_DTSector ) {
+          dt_numHits++;
+        }
+      }
+      if ( id.det() == DetId::Muon && id.subdetId() == MuonSubdetId::CSC ) csc_numHits++;
+    }
+    
+    std::cout << "track tracker_numHits: " << tracker_numHits << std::endl;
+    std::cout << "track dt_numHits:      " << dt_numHits << std::endl;
+    std::cout << "track csc_numHits:     " << csc_numHits << std::endl;
+    
+    if (    m_minTrackerHits <= tracker_numHits
+         && ( m_minDTHits <= dt_numHits  ||  m_minCSCHits <= csc_numHits ) )  return true;
+
   }
   
   return false;

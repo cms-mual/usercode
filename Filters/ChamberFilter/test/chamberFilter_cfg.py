@@ -33,7 +33,10 @@ process.ChamberFilter = cms.EDFilter("ChamberFilter",
   maxTrackEta    = cms.double(2.4),
   minTrackerHits = cms.int32(10),
   minDTHits      = cms.int32(6),
-  minCSCHits     = cms.int32(4)
+  minCSCHits     = cms.int32(4),
+  dtWheel        = cms.int32(0),
+  dtStation        = cms.int32(1),
+  dtSector        = cms.int32(1)
 )
 
 process.Path = cms.Path(process.ChamberFilter)
