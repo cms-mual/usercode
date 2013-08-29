@@ -13,7 +13,7 @@
 //
 // Original Author:  Yuriy Pakhotin,,,
 //         Created:  Wed Aug 28 17:03:10 CDT 2013
-// $Id: ChamberFilter.cc,v 1.1 2013/08/28 23:30:13 pakhotin Exp $
+// $Id: ChamberFilter.cc,v 1.2 2013/08/28 23:55:16 pakhotin Exp $
 //
 //
 
@@ -41,6 +41,7 @@
 #include "DataFormats/DetId/interface/DetId.h"
 #include "DataFormats/MuonDetId/interface/MuonSubdetId.h"
 #include "DataFormats/MuonDetId/interface/DTChamberId.h"
+#include "DataFormats/MuonDetId/interface/CSCDetId.h"
 
 //
 // class declaration
@@ -68,7 +69,10 @@ class ChamberFilter : public edm::EDFilter {
   int m_DTWheel;
   int m_DTStation;
   int m_DTSector;
-
+  int m_CSCEndcap;
+  int m_CSCStation;
+  int m_CSCRing;
+  int m_CSCChamber;
 };
 
 //
@@ -90,10 +94,13 @@ ChamberFilter::ChamberFilter(const edm::ParameterSet& iConfig)
   , m_minTrackerHits( iConfig.getParameter<int>("minTrackerHits"))
   , m_minDTHits(      iConfig.getParameter<int>("minDTHits"))
   , m_minCSCHits(     iConfig.getParameter<int>("minCSCHits"))
-  , m_DTWheel(     iConfig.getParameter<int>("dtWheel"))
-  , m_DTStation(     iConfig.getParameter<int>("dtStation"))
-  , m_DTSector(     iConfig.getParameter<int>("dtSector"))
-
+  , m_DTWheel(        iConfig.getParameter<int>("dtWheel"))
+  , m_DTStation(      iConfig.getParameter<int>("dtStation"))
+  , m_DTSector(       iConfig.getParameter<int>("dtSector"))
+  , m_CSCEndcap(      iConfig.getParameter<int>("cscEndcap"))
+  , m_CSCStation(     iConfig.getParameter<int>("cscStation"))
+  , m_CSCRing(        iConfig.getParameter<int>("cscRing"))
+  , m_CSCChamber(     iConfig.getParameter<int>("cscChamber"))
 {}
 
 
@@ -131,17 +138,34 @@ bool ChamberFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
     int csc_numHits     = 0;
     
     for ( trackingRecHit_iterator hit = track->recHitsBegin(); hit != track->recHitsEnd();  ++hit ) {
-      DetId id = (*hit)->geographicalId();        
-      if ( id.det() == DetId::Tracker ) tracker_numHits++;
-      if ( id.det() == DetId::Muon && id.subdetId() == MuonSubdetId::DT ) {
-        const DTChamberId chamberId(id.rawId());
-        if (    chamberId.wheel()   == m_DTWheel
-             && chamberId.station() == m_DTStation
-             && chamberId.sector()  == m_DTSector ) {
+      DetId hitId = (*hit)->geographicalId();        
+      if ( hitId.det() == DetId::Tracker ) tracker_numHits++;
+      
+      if ( hitId.det() == DetId::Muon && hitId.subdetId() == MuonSubdetId::DT ) {
+        const DTChamberId dtChamberId(hitId.rawId());
+        std::cout << "hit DT wheel: " << dtChamberId.wheel()
+                  << " station: "     << dtChamberId.station()
+                  << " sector: "      << dtChamberId.sector() << std::endl;
+        if (    dtChamberId.wheel()   == m_DTWheel
+             && dtChamberId.station() == m_DTStation
+             && dtChamberId.sector()  == m_DTSector ) {
           dt_numHits++;
         }
       }
-      if ( id.det() == DetId::Muon && id.subdetId() == MuonSubdetId::CSC ) csc_numHits++;
+      
+      if ( hitId.det() == DetId::Muon && hitId.subdetId() == MuonSubdetId::CSC ) {
+        const CSCDetId cscChamberId(hitId.rawId());
+        std::cout << "hit CSC endcap: " << cscChamberId.endcap()
+                  << " station: "       << cscChamberId.station()
+                  << " ring: "          << cscChamberId.ring()
+                  << " chamber: "       << cscChamberId.chamber() << std::endl;
+        if (    cscChamberId.endcap()  == m_CSCEndcap
+             && cscChamberId.station() == m_CSCStation
+             && cscChamberId.ring()    == m_CSCRing
+             && cscChamberId.chamber() == m_CSCChamber ) {
+          csc_numHits++;
+        }
+      }
     }
     
     std::cout << "track tracker_numHits: " << tracker_numHits << std::endl;

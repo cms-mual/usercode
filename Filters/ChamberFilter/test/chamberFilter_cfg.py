@@ -1,8 +1,10 @@
 import FWCore.ParameterSet.Config as cms
 
-#import os
+import os
 #inputfiles = os.environ["ALIGNMENT_INPUTFILES"].split(" ")
 #jobnumber = int(os.environ["ALIGNMENT_JOBNUMBER"])
+
+
 
 process = cms.Process("CHAMBERFILTER")
 
@@ -32,17 +34,21 @@ process.ChamberFilter = cms.EDFilter("ChamberFilter",
   minTrackEta    = cms.double(-2.4),
   maxTrackEta    = cms.double(2.4),
   minTrackerHits = cms.int32(10),
-  minDTHits      = cms.int32(6),
-  minCSCHits     = cms.int32(4),
-  dtWheel        = cms.int32(0),
-  dtStation        = cms.int32(1),
-  dtSector        = cms.int32(1)
+  minDTHits      = cms.int32(1),
+  minCSCHits     = cms.int32(1),
+  dtWheel        = cms.int32(-3), # = -2,-1, 0, 1, 2; use "-3" to exclude DT
+  dtStation      = cms.int32(1),
+  dtSector       = cms.int32(1),
+  cscEndcap      = cms.int32(1), # = 1, 2; use "0" to exclude CSC
+  cscStation     = cms.int32(1),
+  cscRing        = cms.int32(3),
+  cscChamber     = cms.int32(1)
 )
 
 process.Path = cms.Path(process.ChamberFilter)
 
 process.output = cms.OutputModule("PoolOutputModule",
-  fileName = cms.untracked.string("SingleMu_Run2012A_MuAlCalIsolatedMu-13Jul2012-v1_MB_0_1_1.root"),
+  fileName = cms.untracked.string("SingleMu_Run2012A_MuAlCalIsolatedMu-13Jul2012-v1_MEp_1_3_1.root"),
   SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring("Path"))
 )
 
