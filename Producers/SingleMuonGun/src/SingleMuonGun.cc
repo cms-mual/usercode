@@ -13,7 +13,7 @@
 //
 // Original Author:  Yuriy Pakhotin,,,
 //         Created:  Wed Sep  4 13:36:33 CDT 2013
-// $Id: SingleMuonGun.cc,v 1.1 2013/09/04 18:37:43 pakhotin Exp $
+// $Id: SingleMuonGun.cc,v 1.2 2013/09/05 04:55:07 pakhotin Exp $
 //
 //
 
@@ -31,8 +31,10 @@
 
 #include "HepMC/GenEvent.h"
 
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/Framework/interface/ESHandle.h"
-#include "FWCore/Framework/interface/one/EDProducer.h"
+#include "FWCore/Framework/interface/EDProducer.h"
 #include "FWCore/Framework/interface/Run.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/EventSetup.h"
@@ -45,6 +47,7 @@
 #include "CLHEP/Random/RandFlat.h"
 
 #include "SimDataFormats/GeneratorProducts/interface/HepMCProduct.h"
+#include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
 #include "SimDataFormats/GeneratorProducts/interface/GenRunInfoProduct.h"
 
 #include "SimGeneral/HepPDTRecord/interface/ParticleDataTable.h"
@@ -88,6 +91,15 @@ class SingleMuonGun : public edm::EDProducer {
       
   // ----------member data ---------------------------
   
+  // the event format itself
+  HepMC::GenEvent* m_Evt;
+  
+  ESHandle<HepPDT::ParticleDataTable> m_PDGTable;
+  
+  CLHEP::HepRandomEngine& m_RandomEngine;
+  CLHEP::RandFlat*        m_RandomGenerator;
+  	    	
+  int    m_Verbosity;
   int    m_partID;
   double m_minPt;
   double m_maxPt;
@@ -95,16 +107,6 @@ class SingleMuonGun : public edm::EDProducer {
   double m_maxEta;
   double m_minPhi;
   double m_maxPhi;
-  
-  // the event format itself
-  HepMC::GenEvent* m_Evt;
-  
-  ESHandle<HepPDT::ParticleDataTable> m_PDGTable;
-            	    	
-  int m_Verbosity;
-
-  CLHEP::HepRandomEngine& m_RandomEngine;
-  CLHEP::RandFlat*        m_RandomGenerator; 
   
 };
 
@@ -124,13 +126,12 @@ SingleMuonGun::SingleMuonGun(const edm::ParameterSet& iConfig)
   , m_RandomEngine( getEngineReference() )
   , m_RandomGenerator(0)
   , m_Verbosity( iConfig.getUntrackedParameter<int>( "Verbosity",0 ) )
-  , m_partID(    iConfig.getParameter<int>("partID") )
-  , m_minPt(     iConfig.getParameter<double>("minPt") )
-  , m_maxPt(     iConfig.getParameter<double>("maxPt") )
-  , m_minEta(    iConfig.getParameter<double>("minEta") )
-  , m_maxEta(    iConfig.getParameter<double>("maxEta") )
-  , m_minPhi(    iConfig.getParameter<double>("minPhi") )
-  , m_maxPhi(    iConfig.getParameter<double>("maxPhi") )
+  , m_minPt(     iConfig.getParameter<double>("MinPt") )
+  , m_maxPt(     iConfig.getParameter<double>("MaxPt") )
+  , m_minEta(    iConfig.getParameter<double>("MinEta") )
+  , m_maxEta(    iConfig.getParameter<double>("MaxEta") )
+  , m_minPhi(    iConfig.getParameter<double>("MinPhi") )
+  , m_maxPhi(    iConfig.getParameter<double>("MaxPhi") )
 {
   
   m_RandomGenerator = new CLHEP::RandFlat(m_RandomEngine);
@@ -155,7 +156,7 @@ SingleMuonGun::~SingleMuonGun()
 //
 
 // ------------ method called on each new Event  ------------
-bool SingleMuonGun::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
+void SingleMuonGun::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
   
   if ( m_Verbosity > 0 ) cout << " SingleMuonGunProducer : Begin New Event Generation" << endl;
@@ -164,9 +165,41 @@ bool SingleMuonGun::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   
   HepMC::GenVertex* Vtx = new HepMC::GenVertex( HepMC::FourVector(0.,0.,0.) );
   
-  double pt  = fRandomGenerator->fire(m_minPt,  m_maxPt);
-  double eta = fRandomGenerator->fire(m_minEta, m_maxEta);
-  double phi = fRandomGenerator->fire(m_minPhi, m_maxPhi);
+  double muon_sign = m_RandomGenerator->fire(-1.0,  1.0);
+  if ( muon_sign < 0 ) {
+    m_partID = -13;
+  } else {
+    m_partID = 13;
+  }
+  
+  m_minPt = 30.0;
+  m_maxPt = 200.0;
+  double pt    = m_minPt;
+  double y_rnd = 0.0;
+  while(1) {
+    pt    = m_RandomGenerator->fire(m_minPt,  m_maxPt);
+    y_rnd = m_RandomGenerator->fire(0.0, 0.46684);
+    if (pt >= 30.0  && pt < 40.0  && y_rnd < 0.46684     ) break;
+    if (pt >= 40.0  && pt < 50.0  && y_rnd < 0.3498604   ) break;
+    if (pt >= 50.0  && pt < 60.0  && y_rnd < 0.09976921  ) break;
+    if (pt >= 60.0  && pt < 70.0  && y_rnd < 0.03986568  ) break;
+    if (pt >= 70.0  && pt < 80.0  && y_rnd < 0.0186057   ) break;
+    if (pt >= 80.0  && pt < 90.0  && y_rnd < 0.009773275 ) break;
+    if (pt >= 90.0  && pt < 100.0 && y_rnd < 0.0055456   ) break;
+    if (pt >= 100.0 && pt < 110.0 && y_rnd < 0.003377719 ) break;
+    if (pt >= 110.0 && pt < 120.0 && y_rnd < 0.002205957 ) break;
+    if (pt >= 120.0 && pt < 130.0 && y_rnd < 0.001352316 ) break;
+    if (pt >= 130.0 && pt < 140.0 && y_rnd < 0.0008818916) break;
+    if (pt >= 140.0 && pt < 150.0 && y_rnd < 0.0006362394) break;
+    if (pt >= 150.0 && pt < 160.0 && y_rnd < 0.0004544567) break;
+    if (pt >= 160.0 && pt < 170.0 && y_rnd < 0.0002898697) break;
+    if (pt >= 170.0 && pt < 180.0 && y_rnd < 0.0002481088) break;
+    if (pt >= 180.0 && pt < 190.0 && y_rnd < 0.0001658153) break;
+    if (pt >= 190.0 && pt < 200.0 && y_rnd < 0.0001277392) break;
+  }
+  
+  double eta = m_RandomGenerator->fire(m_minEta, m_maxEta);
+  double phi = m_RandomGenerator->fire(m_minPhi, m_maxPhi);
   
   const HepPDT::ParticleData* PData = m_PDGTable->particle( HepPDT::ParticleID(abs(m_partID)) );
   
@@ -208,7 +241,8 @@ SingleMuonGun::beginJob()
 
 // ------------ method called once each job just after ending the event loop  ------------
 void 
-SingleMuonGun::endJob() {
+SingleMuonGun::endJob()
+{
 }
 
 // ------------ method called when starting to processes a run  ------------
@@ -226,8 +260,8 @@ void
 SingleMuonGun::endRun(edm::Run& iRun, edm::EventSetup const& iSetup)
 {
 
-//  auto_ptr<GenRunInfoProduct> genRunInfo( new GenRunInfoProduct() );
-//  iRun.put( genRunInfo );
+  auto_ptr<GenRunInfoProduct> genRunInfo( new GenRunInfoProduct() );
+  iRun.put( genRunInfo );
 
 }
 
