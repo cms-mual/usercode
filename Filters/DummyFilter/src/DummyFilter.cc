@@ -13,7 +13,7 @@
 //
 // Original Author:  Yuriy Pakhotin,,,
 //         Created:  Fri Sep 13 11:36:21 CDT 2013
-// $Id:  Exp $
+// $Id: DummyFilter.cc,v 1.1 2013/09/13 16:44:01 pakhotin Exp $
 //
 //
 
@@ -65,7 +65,7 @@ class DummyFilter : public edm::EDFilter {
 // constructors and destructor
 //
 DummyFilter::DummyFilter(const edm::ParameterSet& iConfig)
-  : m_filterAll(iConfig.getParameter<edm::InputTag>("filterAll"))
+  : m_filterAll(iConfig.getParameter<bool>("filterAll"))
 {}
 
 
