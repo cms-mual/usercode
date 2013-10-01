@@ -13,7 +13,7 @@ process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(-1))
 
 process.MessageLogger = cms.Service("MessageLogger",
                                     destinations = cms.untracked.vstring("cout"),
-                                    cout = cms.untracked.PSet(threshold = cms.untracked.string("WARNING")))
+                                    cout = cms.untracked.PSet(threshold = cms.untracked.string("INFO")))
 
 process.DummyFilter = cms.EDFilter("DummyFilter",
   filterAll      = cms.bool(True)
@@ -22,7 +22,7 @@ process.DummyFilter = cms.EDFilter("DummyFilter",
 process.Path = cms.Path(process.DummyFilter)
 
 process.output = cms.OutputModule("PoolOutputModule",
-  fileName = cms.untracked.string("singleMuonGun_RECO_v4_Consolidated_v1.root"),
+  fileName = cms.untracked.string("singleMuonGun_RECO_Consolidated.root"),
   SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring("Path"))
 )
 
