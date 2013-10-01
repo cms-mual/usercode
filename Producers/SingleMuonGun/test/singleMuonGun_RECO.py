@@ -99,6 +99,7 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:mc_GRun', '')
 # Generate events
 process.generator = cms.EDProducer("SingleMuonGun",
   Verbosity = cms.untracked.int32(0),
+  pT_model  = cms.string("pT_flat"),
   MinPt  = cms.double(30.0),
   MaxPt  = cms.double(200.0),
   MinEta = cms.double(-2.4),

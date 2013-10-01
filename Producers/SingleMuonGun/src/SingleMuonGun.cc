@@ -13,7 +13,7 @@
 //
 // Original Author:  Yuriy Pakhotin,,,
 //         Created:  Wed Sep  4 13:36:33 CDT 2013
-// $Id: SingleMuonGun.cc,v 1.2 2013/09/05 04:55:07 pakhotin Exp $
+// $Id: SingleMuonGun.cc,v 1.3 2013/09/08 14:46:47 pakhotin Exp $
 //
 //
 
@@ -126,6 +126,7 @@ SingleMuonGun::SingleMuonGun(const edm::ParameterSet& iConfig)
   , m_RandomEngine( getEngineReference() )
   , m_RandomGenerator(0)
   , m_Verbosity( iConfig.getUntrackedParameter<int>( "Verbosity",0 ) )
+  , m_pT_model(     iConfig.UntrackedParameter<string>("pT_model") )
   , m_minPt(     iConfig.getParameter<double>("MinPt") )
   , m_maxPt(     iConfig.getParameter<double>("MaxPt") )
   , m_minEta(    iConfig.getParameter<double>("MinEta") )
@@ -138,6 +139,8 @@ SingleMuonGun::SingleMuonGun(const edm::ParameterSet& iConfig)
   produces<HepMCProduct>();
   produces<GenEventInfoProduct>();
   produces<GenRunInfoProduct, InRun>();
+  
+  std::cout << "THIS IS m_pT_model: " << m_pT_model << std::endl;
   
 }
 
